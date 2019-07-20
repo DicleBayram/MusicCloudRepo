@@ -45,10 +45,18 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="EntityFramework, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
+      <HintPath>..\packages\EntityFramework.6.1.3\lib\net45\EntityFramework.dll</HintPath>
+    </Reference>
+    <Reference Include="EntityFramework.SqlServer, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
+      <HintPath>..\packages\EntityFramework.6.1.3\lib\net45\EntityFramework.SqlServer.dll</HintPath>
+    </Reference>
     <Reference Include="Microsoft.CSharp" />
     <Reference Include="System" />
     <Reference Include="System.Data" />
     <Reference Include="System.Drawing" />
+    <Reference Include="System.Runtime.Serialization" />
+    <Reference Include="System.Security" />
     <Reference Include="System.Web.DynamicData" />
     <Reference Include="System.Web.Entity" />
     <Reference Include="System.Web.ApplicationServices" />
@@ -123,14 +131,68 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Album.cs">
+      <DependentUpon>MusicCloudDbModel.tt</DependentUpon>
+    </Compile>
     <Compile Include="App_Start\BundleConfig.cs" />
     <Compile Include="App_Start\FilterConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
+    <Compile Include="Binders\AlbumBinder.cs" />
+    <Compile Include="Binders\SingerBinder.cs" />
+    <Compile Include="Binders\SongBinder.cs" />
+    <Compile Include="Binders\StyleBinder.cs" />
+    <Compile Include="Binders\UserBinder.cs" />
+    <Compile Include="Binders\UserTypeBinder.cs" />
+    <Compile Include="Controllers\AlbumModelsController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
+    <Compile Include="Controllers\SingerModelsController.cs" />
+    <Compile Include="Controllers\SongModelsController.cs" />
+    <Compile Include="Controllers\StyleModelsController.cs" />
+    <Compile Include="Controllers\UserModelsController.cs" />
+    <Compile Include="Controllers\UserTypeModelsController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
+    <Compile Include="ListenRecord.cs">
+      <DependentUpon>MusicCloudDbModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\AlbumModel.cs" />
+    <Compile Include="Models\SingerModel.cs" />
+    <Compile Include="Models\SongModel.cs" />
+    <Compile Include="Models\StyleModel.cs" />
+    <Compile Include="Models\UserModel.cs" />
+    <Compile Include="Models\UserTypeModel.cs" />
+    <Compile Include="MusicCloudDbModel.Context.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>MusicCloudDbModel.Context.tt</DependentUpon>
+    </Compile>
+    <Compile Include="MusicCloudDbModel.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>MusicCloudDbModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="MusicCloudDbModel.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>MusicCloudDbModel.edmx</DependentUpon>
+    </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Singer.cs">
+      <DependentUpon>MusicCloudDbModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Song.cs">
+      <DependentUpon>MusicCloudDbModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Style.cs">
+      <DependentUpon>MusicCloudDbModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="User.cs">
+      <DependentUpon>MusicCloudDbModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="UserType.cs">
+      <DependentUpon>MusicCloudDbModel.tt</DependentUpon>
+    </Compile>
   </ItemGroup>
   <ItemGroup>
     <Content Include="Content\bootstrap-theme.css" />
@@ -141,8 +203,25 @@
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
     <Content Include="Global.asax" />
     <Content Include="Content\Site.css" />
+    <Content Include="MusicCloudDbModel.Context.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <LastGenOutput>MusicCloudDbModel.Context.cs</LastGenOutput>
+      <DependentUpon>MusicCloudDbModel.edmx</DependentUpon>
+    </Content>
+    <Content Include="MusicCloudDbModel.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <DependentUpon>MusicCloudDbModel.edmx</DependentUpon>
+      <LastGenOutput>MusicCloudDbModel.cs</LastGenOutput>
+    </Content>
     <Content Include="Scripts\bootstrap.js" />
     <Content Include="Scripts\bootstrap.min.js" />
+    <EntityDeploy Include="MusicCloudDbModel.edmx">
+      <Generator>EntityModelCodeGenerator</Generator>
+      <LastGenOutput>MusicCloudDbModel.Designer.cs</LastGenOutput>
+    </EntityDeploy>
+    <Content Include="MusicCloudDbModel.edmx.diagram">
+      <DependentUpon>MusicCloudDbModel.edmx</DependentUpon>
+    </Content>
     <None Include="Scripts\jquery-3.3.1.intellisense.js" />
     <Content Include="Scripts\jquery-3.3.1.js" />
     <Content Include="Scripts\jquery-3.3.1.min.js" />
@@ -168,10 +247,40 @@
     <Content Include="Views\Home\About.cshtml" />
     <Content Include="Views\Home\Contact.cshtml" />
     <Content Include="Views\Home\Index.cshtml" />
+    <Content Include="Views\AlbumModels\Create.cshtml" />
+    <Content Include="Views\AlbumModels\Delete.cshtml" />
+    <Content Include="Views\AlbumModels\Details.cshtml" />
+    <Content Include="Views\AlbumModels\Edit.cshtml" />
+    <Content Include="Views\AlbumModels\Index.cshtml" />
+    <Content Include="Views\SongModels\Create.cshtml" />
+    <Content Include="Views\SongModels\Delete.cshtml" />
+    <Content Include="Views\SongModels\Details.cshtml" />
+    <Content Include="Views\SongModels\Edit.cshtml" />
+    <Content Include="Views\SongModels\Index.cshtml" />
+    <Content Include="Views\SingerModels\Create.cshtml" />
+    <Content Include="Views\SingerModels\Delete.cshtml" />
+    <Content Include="Views\SingerModels\Details.cshtml" />
+    <Content Include="Views\SingerModels\Edit.cshtml" />
+    <Content Include="Views\SingerModels\Index.cshtml" />
+    <Content Include="Views\StyleModels\Create.cshtml" />
+    <Content Include="Views\StyleModels\Delete.cshtml" />
+    <Content Include="Views\StyleModels\Details.cshtml" />
+    <Content Include="Views\StyleModels\Edit.cshtml" />
+    <Content Include="Views\StyleModels\Index.cshtml" />
+    <Content Include="Views\UserTypeModels\Create.cshtml" />
+    <Content Include="Views\UserTypeModels\Delete.cshtml" />
+    <Content Include="Views\UserTypeModels\Details.cshtml" />
+    <Content Include="Views\UserTypeModels\Edit.cshtml" />
+    <Content Include="Views\UserTypeModels\Index.cshtml" />
+    <Content Include="Views\UserModels\Create.cshtml" />
+    <Content Include="Views\UserModels\Delete.cshtml" />
+    <Content Include="Views\UserModels\Details.cshtml" />
+    <Content Include="Views\UserModels\Edit.cshtml" />
+    <Content Include="Views\UserModels\Index.cshtml" />
+    <Content Include="Views\UserModels\Login.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
-    <Folder Include="Models\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="fonts\glyphicons-halflings-regular.woff2" />
@@ -185,6 +294,9 @@
     <None Include="packages.config" />
     <Content Include="Scripts\jquery-3.3.1.slim.min.map" />
     <Content Include="Scripts\jquery-3.3.1.min.map" />
+  </ItemGroup>
+  <ItemGroup>
+    <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>

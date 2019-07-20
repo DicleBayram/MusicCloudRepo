@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+ <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <!-- Diagram content (shape and connector positions) -->
+    <edmx:Diagrams>
+      <Diagram DiagramId="5ba7c8040e6b4a88921983b82d1bf0c0" Name="Diagram1" ZoomLevel="74">
+        <EntityTypeShape EntityType="MusicCloudModel.Album" Width="1.5" PointX="3" PointY="1" IsExpanded="true" />
+        <EntityTypeShape EntityType="MusicCloudModel.ListenRecord" Width="1.5" PointX="7.5" PointY="1" IsExpanded="true" />
+        <EntityTypeShape EntityType="MusicCloudModel.Singer" Width="1.5" PointX="0.75" PointY="1.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="MusicCloudModel.Song" Width="1.5" PointX="5.25" PointY="1" IsExpanded="true" />
+        <EntityTypeShape EntityType="MusicCloudModel.Style" Width="1.5" PointX="3" PointY="5.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="MusicCloudModel.User" Width="1.5" PointX="5.25" PointY="5.25" IsExpanded="true" />
+        <AssociationConnector Association="MusicCloudModel.FK_Album_Singer" ManuallyRouted="false" />
+        <AssociationConnector Association="MusicCloudModel.FK_Song_Album" ManuallyRouted="false" />
+        <AssociationConnector Association="MusicCloudModel.FK_ListenRecord_Song" ManuallyRouted="false" />
+        <AssociationConnector Association="MusicCloudModel.FK_ListenRecord_User" ManuallyRouted="false" />
+        <AssociationConnector Association="MusicCloudModel.FK_Song_Style" ManuallyRouted="false" />
+        <EntityTypeShape EntityType="MusicCloudModel.UserType" Width="1.5" PointX="3" PointY="8.5" />
+        <AssociationConnector Association="MusicCloudModel.FK_User_UserType" />
+      </Diagram>
+    </edmx:Diagrams>
+  </edmx:Designer>
+</edmx:Edmx>
