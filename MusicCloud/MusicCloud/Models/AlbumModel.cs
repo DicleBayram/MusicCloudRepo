@@ -8,6 +8,9 @@ namespace MusicCloud.Models
     {
         public int Id { get; set; }       
         public string Name { get; set; }
+        [DisplayFormat(ApplyFormatInEditMode = true, DataFormatString = "{0:dd-MM-yyyy}")]
+        [DataType(DataType.Date)]
+        [Display(Name = "Albüm Çıkış Tarihi")]
         public DateTime UploadDate { get; set; }
         public int SingerId { get; set; }
 

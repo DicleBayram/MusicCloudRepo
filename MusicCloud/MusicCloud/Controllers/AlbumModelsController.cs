@@ -51,10 +51,6 @@ namespace MusicCloud.Controllers
         // GET: AlbumModels/Create
         public ActionResult Create()
         {
-            if (false)
-            {
-                return HttpNotFound("Sayfa yok veya yetkili değilsiniz");
-            }
             ViewBag.SingerId = new SelectList(db.Singer, "Id", "Name");
             return View();
         }
