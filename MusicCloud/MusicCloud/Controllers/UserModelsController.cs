@@ -42,6 +42,10 @@ namespace MusicCloud.Controllers
         // GET: UserModels/Create
         public ActionResult Create()
         {
+            if (!Convert.ToBoolean(Session["IsAdmin"]))
+            {
+                return HttpNotFound("You are not admin");
+            }
             ViewBag.UserTypeId = new SelectList(db.UserType, "Id", "UserTypeCode");
             return View();
         }
@@ -133,6 +137,18 @@ namespace MusicCloud.Controllers
         {
             if (ModelState.IsValid)
             {
+                UserModel dbUser = userModel.GetUserByUsername(userModel.UserName);
+                if (dbUser.UserName == null)
+                {
+                    return HttpNotFound("User is not found");
+                }
+                if (!String.Equals(dbUser.Password, userModel.Password))
+                {
+                    return HttpNotFound("Wrong password");
+                }
+
+                Session["IsAdmin"] = dbUser.UserTypeId == 1;
+
                 return RedirectToAction("Index");
             }
             return View(userModel);

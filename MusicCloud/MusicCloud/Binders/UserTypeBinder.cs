@@ -18,14 +18,27 @@ namespace MusicCloud.Binders
             return userType;
         }
 
-        public UserTypeModel Bind(UserType userType)
+        public ICollection<UserTypeModel> Bind(ICollection<UserType> userType)
         {
-            UserTypeModel userTypeModel = new UserTypeModel();
+            ICollection<UserTypeModel> userTypeModelList = new List<UserTypeModel>();
 
-            userTypeModel.Id = userType.Id;
-            userTypeModel.UserTypeCode = userType.UserTypeCode;
+            try
+            {
+                foreach (var item in userType)
+                {
+                    UserTypeModel userTypeModel = new UserTypeModel();
+                    userTypeModel.Id = item.Id;
+                    userTypeModel.UserTypeCode = item.UserTypeCode;
+                    userTypeModelList.Add(userTypeModel);
+                }
+            }
+            catch (Exception ex)
+            {
 
-            return userTypeModel;
+                Console.WriteLine(ex.Message);
+            }
+                        
+            return userTypeModelList;
         }
     }
 }

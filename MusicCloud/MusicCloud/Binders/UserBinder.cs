@@ -12,7 +12,7 @@ namespace MusicCloud.Binders
         {
             User user = new User();
             try
-            {                
+            {
                 user.Id = userModel.Id;
                 user.Password = userModel.Password;
                 user.UserName = userModel.UserName;
@@ -24,6 +24,28 @@ namespace MusicCloud.Binders
             }
 
             return user;
+        }
+
+        public UserModel Bind(User user)
+        {
+            UserModel userModel = new UserModel();
+            if (user != null)
+            {
+                try
+                {
+                    userModel.Id = user.Id;
+                    userModel.Password = user.Password;
+                    userModel.UserName = user.UserName;
+                    userModel.UserTypeId = user.UserTypeId;
+                }
+                catch (Exception ex)
+                {
+                    Console.WriteLine(ex);
+                }
+
+            }
+
+            return userModel;
         }
 
         public ICollection<UserModel> Bind(ICollection<User> user)

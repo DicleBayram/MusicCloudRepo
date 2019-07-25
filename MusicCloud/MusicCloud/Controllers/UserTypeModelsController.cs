@@ -7,6 +7,7 @@ using System.Net;
 using System.Web;
 using System.Web.Mvc;
 using MusicCloud;
+using MusicCloud.Binders;
 using MusicCloud.Models;
 
 namespace MusicCloud.Controllers
@@ -18,7 +19,9 @@ namespace MusicCloud.Controllers
         // GET: UserTypeModels
         public ActionResult Index()
         {
-            return View(db.UserType.ToList());
+            UserTypeBinder userBinder = new UserTypeBinder();
+            ICollection<UserTypeModel> userTypeModelList = userBinder.Bind(db.UserType.ToList());
+            return View(userTypeModelList);
         }
 
         // GET: UserTypeModels/Details/5
@@ -47,11 +50,13 @@ namespace MusicCloud.Controllers
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "Id,UserTypeCode")] UserType userTypeModel)
+        public ActionResult Create([Bind(Include = "Id,UserTypeCode")] UserTypeModel userTypeModel)
         {
             if (ModelState.IsValid)
             {
-                db.UserType.Add(userTypeModel);
+                UserTypeBinder userTypeBinder = new UserTypeBinder();
+                UserType userType = userTypeBinder.Bind(userTypeModel);
+                db.UserType.Add(userType);
                 db.SaveChanges();
                 return RedirectToAction("Index");
             }
