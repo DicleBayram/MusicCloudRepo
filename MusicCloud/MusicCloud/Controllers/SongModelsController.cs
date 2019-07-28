@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Data.Entity;
 using System.Linq;
 using System.Net;
@@ -51,6 +52,11 @@ namespace MusicCloud.Controllers
         // GET: SongModels/Create
         public ActionResult Create()
         {
+            if (!Convert.ToBoolean(Session["IsAdmin"]))
+            {
+                return HttpNotFound("You are not admin");
+            }
+
             ViewBag.AlbumId = new SelectList(db.Album, "Id", "Name");
             ViewBag.StyleId = new SelectList(db.Style, "Id", "Name");
             return View();

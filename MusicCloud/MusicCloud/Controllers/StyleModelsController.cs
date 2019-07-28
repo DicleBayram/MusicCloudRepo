@@ -41,7 +41,12 @@ namespace MusicCloud.Controllers
 
         // GET: StyleModels/Create
         public ActionResult Create()
-        {
+        {            
+            if (!Convert.ToBoolean(Session["IsAdmin"]))
+            {
+                return HttpNotFound("You are not admin");
+
+            }
             return View();
         }
 
