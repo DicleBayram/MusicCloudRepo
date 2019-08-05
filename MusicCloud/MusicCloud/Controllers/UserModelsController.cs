@@ -4,7 +4,9 @@ using System.Data.Entity;
 using System.Linq;
 using System.Net;
 using System.Web.Mvc;
+using System.Web.Security;
 using MusicCloud.Binders;
+using MusicCloud.Helper;
 using MusicCloud.Models;
 
 namespace MusicCloud.Controllers
@@ -37,12 +39,9 @@ namespace MusicCloud.Controllers
         }
 
         // GET: UserModels/Create
+        [LoginControl(Roles = "admin")]
         public ActionResult Create()
         {
-            if (!Convert.ToBoolean(Session["IsAdmin"]))
-            {
-                return HttpNotFound("You are not admin");
-            }
             ViewBag.UserTypeId = new SelectList(db.UserType, "Id", "UserTypeCode");
             return View();
         }
@@ -98,6 +97,7 @@ namespace MusicCloud.Controllers
         }
 
         // GET: UserModels/Delete/5
+        [LoginControl(Roles = "admin")]
         public ActionResult Delete(int? id)
         {
             if (id == null)
@@ -144,8 +144,8 @@ namespace MusicCloud.Controllers
                     return HttpNotFound("Wrong password");
                 }
 
-                Session["IsAdmin"] = dbUser.UserTypeId == 1;
-
+                Session["UserName"] = dbUser.UserName;
+                
                 return RedirectToAction("Index");
             }
             return View(userModel);

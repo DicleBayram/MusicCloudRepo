@@ -4,7 +4,9 @@ using System.Data.Entity;
 using System.Linq;
 using System.Net;
 using System.Web.Mvc;
+using System.Web.Security;
 using MusicCloud.Binders;
+using MusicCloud.Helper;
 using MusicCloud.Models;
 
 namespace MusicCloud.Controllers
@@ -50,13 +52,9 @@ namespace MusicCloud.Controllers
         }
 
         // GET: SongModels/Create
+        [LoginControl(Roles = "admin")]
         public ActionResult Create()
         {
-            if (!Convert.ToBoolean(Session["IsAdmin"]))
-            {
-                return HttpNotFound("You are not admin");
-            }
-
             ViewBag.AlbumId = new SelectList(db.Album, "Id", "Name");
             ViewBag.StyleId = new SelectList(db.Style, "Id", "Name");
             return View();
