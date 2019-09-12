@@ -5,6 +5,7 @@ using System.Linq;
 using System.Net;
 using System.Web.Mvc;
 using MusicCloud.Binders;
+using MusicCloud.Helper;
 using MusicCloud.Models;
 
 namespace MusicCloud.Controllers
@@ -139,7 +140,11 @@ namespace MusicCloud.Controllers
                 {
                     return HttpNotFound("User is not found");
                 }
-                if (!String.Equals(dbUser.Password, userModel.Password))
+
+                PasswordHelper passwordHelper = new PasswordHelper();
+                bool isVerified = passwordHelper.VerifyPassword(userModel.Password, dbUser.Password);
+
+                if (!isVerified)
                 {
                     return HttpNotFound("Wrong password");
                 }

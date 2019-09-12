@@ -1,4 +1,5 @@
-﻿using MusicCloud.Models;
+﻿using MusicCloud.Helper;
+using MusicCloud.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -14,7 +15,7 @@ namespace MusicCloud.Binders
             try
             {
                 user.Id = userModel.Id;
-                user.Password = userModel.Password;
+                user.Password = SecurePasswordHasher.Hash(userModel.Password);
                 user.UserName = userModel.UserName;
                 user.UserTypeId = userModel.UserTypeId;
             }
