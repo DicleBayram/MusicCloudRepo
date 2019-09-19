@@ -123,6 +123,8 @@ namespace MusicCloud.Controllers
             return RedirectToAction("Index");
         }
 
+
+
         public ActionResult Login()
         {
             return View();
@@ -149,12 +151,54 @@ namespace MusicCloud.Controllers
                 }
 
                 Session["UserName"] = dbUser.UserName;
-                
+
                 return RedirectToAction("Index");
             }
             return View(userModel);
         }
 
+        public ActionResult Logout()
+        {
+            Session["UserName"] = null;
+            return RedirectToAction("Index", "Home");
+        }
+
+
+        public ActionResult Registration()
+        {
+            return View();
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public ActionResult Registration([Bind(Include = "Password,RePassword,UserName")] UserModel userModel)
+        {
+            if (ModelState.IsValid)
+            {
+                UserModel dbUser = userModel.GetUserByUsername(userModel.UserName);
+                if (dbUser.UserName != null)
+                {
+                    return HttpNotFound("Username is already used");
+                }
+
+                if (!String.Equals(userModel.Password, userModel.RePassword))
+                {
+                    return HttpNotFound("Passwords are not same");
+                }
+
+                Session["UserName"] = dbUser.UserName;
+
+                UserBinder userBinder = new UserBinder();
+                userModel.UserTypeId = 2;
+                User user = userBinder.Bind(userModel);
+                db.User.Add(user);
+                db.SaveChanges();
+
+                return RedirectToAction("Index", "Home");
+            }
+
+            return View(userModel);
+        }
 
         protected override void Dispose(bool disposing)
         {
