@@ -15,8 +15,11 @@ namespace MusicCloud.Models
         [DataType(DataType.Password)]
         [Display(Name = "Re-Password")]
         public string RePassword { get; set; }
+        [Display(Name = "Username")]
         public string UserName { get; set; }
+        [Display(Name = "User Type")]
         public int UserTypeId { get; set; }
+        [Display(Name = "User Type")]
         public string UserTypeName { get; set; }
 
         public UserModel GetUserByUsername(string userName)
