@@ -8,6 +8,7 @@ using System.Web.Security;
 using MusicCloud.Binders;
 using MusicCloud.Helper;
 using MusicCloud.Models;
+using static MusicCloud.Helper.Constants;
 
 namespace MusicCloud.Controllers
 {
@@ -189,7 +190,7 @@ namespace MusicCloud.Controllers
                 Session["UserName"] = dbUser.UserName;
 
                 UserBinder userBinder = new UserBinder();
-                userModel.UserTypeId = 2;
+                userModel.UserTypeId = UserTypeCodes.User;
                 User user = userBinder.Bind(userModel);
                 db.User.Add(user);
                 db.SaveChanges();

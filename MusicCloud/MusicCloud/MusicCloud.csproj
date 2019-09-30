@@ -153,6 +153,7 @@
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
+    <Compile Include="Helper\Constants.cs" />
     <Compile Include="Helper\LoginControl.cs" />
     <Compile Include="Helper\PasswordHelper.cs" />
     <Compile Include="Helper\SecurePasswordHasher.cs" />

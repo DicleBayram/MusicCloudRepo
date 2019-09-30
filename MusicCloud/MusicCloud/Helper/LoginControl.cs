@@ -1,9 +1,7 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
+﻿using System.Linq;
 using System.Web;
 using System.Web.Mvc;
-using System.Web.Security;
+using static MusicCloud.Helper.Constants;
 
 namespace MusicCloud.Helper
 {
@@ -22,7 +20,7 @@ namespace MusicCloud.Helper
 
                 if (user.UserTypeId == 1)
                 {
-                    if (roles.Contains("admin"))
+                    if (roles.Contains(UserRoles.Admin))
                     {
                         return true;
                     }
@@ -30,7 +28,7 @@ namespace MusicCloud.Helper
 
                 else if (user.UserTypeId == 2)
                 {
-                    if (roles.Contains("user"))
+                    if (roles.Contains(UserRoles.User))
                     {
                         return true;
                     }
